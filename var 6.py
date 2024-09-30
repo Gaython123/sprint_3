@@ -1,3 +1,4 @@
+import datetime
 
 Days = []
 class Day:
@@ -37,17 +38,36 @@ class Day:
             else:
                 print("It's the last day of month\n")
 
-day2 = Day(12,8, 2024)
-day2.display()
-day2.days_to_end_of_month()
+class Planner:
+    def __init__(self, task: str):
+        self.task = task
 
-day3 = Day(1, 1, 2024)
-day3.display()
-day3.days_to_end_of_month()
+    def display(self):
+        print(f"The plan is '{self.task}'")
 
-day4 = Day(29, 2, 2024)
-day4.display()
-day4.days_to_end_of_month()
+def new_plan_creating():
+    plans = {}
+    new_plan = input("Create a new plan")
+    new_plan = Planner
+
+    day = int(input("Choose 'day'"))
+    month = int(input("Choose 'month'"))
+    year = int(input("Choose 'Year'"))
+
+    date = datetime.date(year, month, day)
+    today = datetime.date.today()
+
+    if date < today:
+        print("You cannot add a plan to past time")
+
+    else:
+        print(f"You have successfully added {new_plan} on date {date} to your planner")
+        plans[new_plan] = date
+
+new_plan_creating()
+
+
+
 
 
 
