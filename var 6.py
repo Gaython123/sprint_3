@@ -1,6 +1,7 @@
 import datetime
 
 Days = []
+plans = {}
 class Day:
     def __init__(self, day: int, month: int, year: int):
         self.day = day
@@ -46,25 +47,29 @@ class Planner:
         print(f"The plan is '{self.task}'")
 
 def new_plan_creating():
-    plans = {}
-    new_plan = input("Create a new plan")
     new_plan = Planner
+    new_plan = input("Create a new plan")
 
     day = int(input("Choose 'day'"))
     month = int(input("Choose 'month'"))
     year = int(input("Choose 'Year'"))
 
+    date = Day
     date = datetime.date(year, month, day)
+    today = Day
     today = datetime.date.today()
 
     if date < today:
-        print("You cannot add a plan to past time")
+        print(f"You cannot add a '{new_plan}' to past time")
 
     else:
-        print(f"You have successfully added {new_plan} on date {date} to your planner")
+        print(f"You have successfully added '{new_plan}' on date '{date}' to your planner")
         plans[new_plan] = date
+        print(plans)
 
 new_plan_creating()
+
+
 
 
 
