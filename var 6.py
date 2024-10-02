@@ -41,6 +41,58 @@ class Day:
     def print_days_to_the_end_of_month(self):
         print(f"Days to the end of month : {self.days_to_end_of_month()}")
 
+    # >= greater equal
+    def __ge__(self, other) -> bool:
+        if self.year > other.year:
+            return True
+        elif self.year < other.year:
+            return False
+        else:
+            if self.month > other.month:
+                return True
+            elif self.month < other.month:
+                return False
+            else:
+                if self.day >= other.day:
+                    return True
+                else:
+                    return False
+
+
+    # > greater
+    def __gt__(self, other) -> bool:
+        if self.year > other.year:
+            return True
+
+        elif self.year < other.year:
+            return False
+
+        else:
+            if self.month > other.month:
+                return True
+
+            elif self.month < other.month:
+                return False
+            else:
+                if self.day > other.day:
+                    return True
+                else:
+                    return False
+
+    # <= less equel
+    def __le__(self, other) -> bool:
+        pass
+    # < less
+    def __lt__(self, other) -> bool:
+        pass
+
+    # ==
+    # a == b
+    # a = self; b = other
+    def __eq__(self, other):
+        return self.year == other.year and self.month == other.month and self.day == other.day
+               #[                               БЛОК                                                ]
+
 class Task:
     def __init__(self, task: str, action):
         self.task = task
@@ -72,9 +124,56 @@ class Planner:
         for task in self.plans:
             print(f"{task} : {self.plans[task]} description: {task.action()}")
 
-    #def view_planner
+    def sort(self, comparator):
+        sorted_plans = {}
+#comparator (a, b) => True/False
+        for task1 in self.plans:
+            task = task1
+            for task2 in self.plans:
+                if task in sorted_plans:
+                    continue
+
+                if comparator(self.plans[task1], self.plans[task2]):
+                    task = task2
+            sorted_plans[task] = self.plans[task]
+        pl = Planner()
+        pl.plans = sorted_plans
+        return pl
+
+
+task1 = Task("Play Games 1", lambda: "We are playing games!")
+task2 = Task("Play Games 2", lambda: "We are playing games!")
+task3 = Task("Play Games 3", lambda: "We are playing games!")
+task4 = Task("Play Games 4", lambda: "We are playing games!")
+task5 = Task("Play Games 5", lambda: "We are playing games!")
+
+
+day1 = Day(2, 10, 2024)
+day2 = Day(1, 10, 2024)
+day3 = Day(2, 7, 2023)
+day4 = Day(2, 3, 2025)
+day5 = Day(2, 11, 2004)
 
 planner = Planner()
+planner.add_task(task1, day1)
+planner.add_task(task2, day2)
+planner.add_task(task3, day3)
+planner.add_task(task4, day4)
+planner.add_task(task5, day5)
+
+planner_days = [day1, day2, day3, day4, day5]
+def days_sort(days):
+    for i in range(len(days)):
+        for j in range(len(days)):
+            if days[i] > days[j]:
+                days[i], days[j] = days[j], days[i]
+
+days_sort(planner_days)
+for day in planner_days:
+    print(day)
+
+
+
 #lambda - скорочена верся функції якв прописуэться у один рядок
 #у лямбді ретурн не пишем. Ретурн є неявний
 
@@ -93,8 +192,9 @@ planner.view_plan()
 
 
 
-
-
+print(day1>=day2)
+print(day1>day2)
+#print(day1 == day2)
 
 def new_plan_creating():
     new_plan = Planner
