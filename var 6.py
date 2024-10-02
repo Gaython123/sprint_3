@@ -84,7 +84,25 @@ class Day:
         pass
     # < less
     def __lt__(self, other) -> bool:
-        pass
+        if self.year < other.year:
+            return True
+
+        elif self.year > other.year:
+            return False
+
+        else:
+            if self.month < other.month:
+                return True
+
+            elif self.month > other.month:
+                return False
+            else:
+                if self.day < other.day:
+                    return True
+                else:
+                    return False
+
+
 
     # ==
     # a == b
@@ -162,13 +180,13 @@ planner.add_task(task4, day4)
 planner.add_task(task5, day5)
 
 planner_days = [day1, day2, day3, day4, day5]
-def days_sort(days):
+def days_sort(days, comparator):
     for i in range(len(days)):
         for j in range(len(days)):
-            if days[i] > days[j]:
+            if comparator(days[i], days[j]):
                 days[i], days[j] = days[j], days[i]
 
-days_sort(planner_days)
+days_sort(planner_days, lambda a, b: a < b)
 for day in planner_days:
     print(day)
 
