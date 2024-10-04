@@ -3,7 +3,15 @@ class Triangle:
                  point_a_1: int, point_a_2: int,
                  point_b_1: int, point_b_2: int,
                  point_c_1: int, point_c_2: int):
-
+        """
+        :param name: Name of our Triangle
+        :param point_a_1: first coordinate of A
+        :param point_a_2: second coordinate of A
+        :param point_b_1: first coordinate of B
+        :param point_b_2: second coordinate of B
+        :param point_c_1: first coordinate of C
+        :param point_c_2: second coordinate of C
+        """
         self.name = name
         self.point_a_1 = point_a_1
         self.point_a_2 = point_a_2
@@ -14,7 +22,6 @@ class Triangle:
 
     def display(self):
         """
-
         :return: prints Triangle with its Coordinates
         """
         print(f"{self.name} with coordinates: "
@@ -27,12 +34,15 @@ class Triangle:
                f"B({self.point_b_1};{self.point_b_2}),"\
                f"C({self.point_c_1};{self.point_c_2}),"
 
-#(x1, y1), (x2, y2), (x3, y3)  Sq = (x1y2 + x2y3 + x3y1 – x1y3 – x2y1 – x3y2)/2.
     def square_of_triangle(self):
         """
-
         :return: Square of Triangle
-        abs bo if S < 0
+
+        Square of Triangle with coordinates:
+        (x1, y1), (x2, y2), (x3, y3)  can be counted by:
+        S = (x1y2 + x2y3 + x3y1 – x1y3 – x2y1 – x3y2)/2
+
+        I use abs because on graph 'S' can be <= 0
         """
         return abs((self.point_a_1*self.point_b_2 + self.point_b_1*self.point_c_2 + self.point_c_1 *self.point_a_2
                 - self.point_a_1*self.point_c_2 - self.point_b_1*self.point_a_2 - self.point_c_1*self.point_b_2)/2)
