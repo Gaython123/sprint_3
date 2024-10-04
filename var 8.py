@@ -14,7 +14,7 @@ class Good:
 
     def value_of_product(self):
         #print(f"The total value of '{self.name}' is '{self.quantity * self.price}' euros")
-        return self.name * self.quantity
+        return self.price * self.quantity
 
 #pencil = Good("pencilSun", 7, 40)
 #pencil.display()
@@ -83,3 +83,4 @@ new_storage.add_good(scissors)
 new_storage.show_storage()
 
 new_storage.total_price()
+print(new_storage.total_price())
