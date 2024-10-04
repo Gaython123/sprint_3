@@ -43,22 +43,37 @@ class Storage:
         return f"{self.storage}"
 
     def add_good(self, good: Good_):
+        if good.name in self.storage:
+            return
+
         self.storage.append(good)
 
     def show_storage(self):
-        print(self.storage)
+        for Goods_ in self.storage:
+            print(f"\n {Goods_} \n")
+
+    #def total_value(self):
+    #    for Goods_ in self.storage:
+    #        Good_.value_of_product += Good_.value_of_product
 
 
 
-pencil_2 = Good_("Graphit black", 40, 140, "FOP 'Nazarius'")
-pencil_2.display()
+
+pencil_2= Good_("Graphit black", 40, 140, "FOP 'Nazarius'")
 pencil_2.value_of_product()
 
 pencil_2.increase_price(15)
 pencil_2.value_of_product()
 
-#new_storage = Storage
-#new_storage.add_good(pencil_2)
-#new_storage.show_storage()
+pen = Good_("Pider_Pen", 20, 38, "Epicenter")
+pencil_box = Good_("boxer_sex", 17.5, 30, "Calvin Klose")
+scissors = Good_("Cutty-Cutty", 2.3, 25, "Bez_Pipisky")
+
+new_storage = Storage()
+new_storage.add_good(pencil_2)
+new_storage.add_good(pen)
+new_storage.add_good(scissors)
+new_storage.show_storage()
+
 
 
