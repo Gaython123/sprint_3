@@ -27,7 +27,7 @@ class Triangle:
         return f"{self.name} with coordinates: "\
                f"A({self.point_1}),"\
                f"B({self.point_2}),"\
-               f"C({self.point_3}),"
+               f"C({self.point_3})"
 
     def display(self):
         """
@@ -71,6 +71,22 @@ class Triangle:
         self.point_3.coordinate_1 *= increasing_index
         self.point_3.coordinate_2 *= increasing_index
         return Triangle
+
+class Triangle_(Triangle):
+    def __init__(self, name, point_1: Point, point_2: Point, point_3: Point, type_of_triangle: str):
+        super().__init__(name, point_1, point_2, point_3)
+        self.type_of_triangle = type_of_triangle
+
+    def __str__(self):
+        return f"{self.name} with coordinates: "\
+               f"A({self.point_1}),"\
+               f"B({self.point_2}),"\
+               f"C({self.point_3}) is {self.type_of_triangle}"
+
+    def display(self):
+        print(f"'{self.name}' is '{self.type_of_triangle}' triangle")
+
+    #def triangle_type(self):
 
 
 A = Point(3, 7)
