@@ -96,12 +96,21 @@ class Triangle_(Triangle):
         if side_12 == side_13 == side_23:
             return "RivnoStoronnyi"
 
-        elif side_12 == side_13 and side_12 != side_23 or
-             side_12 == side_23 and side_12 != side_13 or
-             side_13 == side_23 and side_13 != side_12:
-                return "Рівнобедренний"
+        elif (side_12 == side_13 and side_12 != side_23
+           or side_12 == side_23 and side_12 != side_13
+           or side_13 == side_23 and side_13 != side_12):
+             return "Рівнобедренний"
 
+        elif (side_12 ** 2 + side_13 ** 2 == side_23 ** 2
+           or side_12 ** 2 + side_23 ** 2 == side_13 ** 2
+           or side_13 ** 2 + side_23 ** 2 == side_12 ** 2):
+            return "Прямокутний"
 
+        elif side_23 or side_12 or side_13 == 0:
+            return "Not a triangle"
+
+        else:
+            return "Довільний"
 
 A = Point(3, 7)
 B = Point(-2, 9)
@@ -114,3 +123,4 @@ ABC.coordinates_increased(2)
 ABC.display()
 print(ABC.square_of_triangle())
 ABC.triangle_type()
+print(ABC.triangle_type())
