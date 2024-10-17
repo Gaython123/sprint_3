@@ -1,3 +1,4 @@
+import math
 class Point:
     def __init__(self, coordinate_1: int, coordinate_2:int):
         """
@@ -86,18 +87,30 @@ class Triangle_(Triangle):
     def display(self):
         print(f"'{self.name}' is '{self.type_of_triangle}' triangle")
 
-    #def triangle_type(self):
+    def triangle_type(self):
+
+        side_12 = math.sqrt((self.point_2.coordinate_1 - self.point_1.coordinate_1) ** 2 + (self.point_2.coordinate_2 - self.point_1.coordinate_2) ** 2)
+        side_13 = math.sqrt((self.point_3.coordinate_1 - self.point_1.coordinate_1) ** 2 + (self.point_3.coordinate_2 - self.point_1.coordinate_2) ** 2)
+        side_23 = math.sqrt((self.point_3.coordinate_1 - self.point_2.coordinate_1) ** 2 + (self.point_3.coordinate_2 - self.point_2.coordinate_2) ** 2)
+
+        if side_12 == side_13 == side_23:
+            return "RivnoStoronnyi"
+
+        elif side_12 == side_13 and side_12 != side_23 or
+             side_12 == side_23 and side_12 != side_13 or
+             side_13 == side_23 and side_13 != side_12:
+                return "Рівнобедренний"
+
 
 
 A = Point(3, 7)
 B = Point(-2, 9)
 C = Point(-4, 22)
-ABC = Triangle("ABC", A, B, C)
+ABC = Triangle_("ABC", A, B, C, "")
 ABC.square_of_triangle()
 print(ABC.square_of_triangle())
 ABC.display()
 ABC.coordinates_increased(2)
 ABC.display()
 print(ABC.square_of_triangle())
-
-
+ABC.triangle_type()
