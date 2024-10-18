@@ -87,19 +87,23 @@ class Triangle_(Triangle):
         side_23 = math.sqrt((self.point_3.coordinate_1 - self.point_2.coordinate_1) ** 2 + (self.point_3.coordinate_2 - self.point_2.coordinate_2) ** 2)
 
         if side_12 == side_13 == side_23:
+            self.type_of_triangle = "Рівносторонній"
             return "Рівносторонній"
 
         elif (side_12 == side_13 and side_12 != side_23
            or side_12 == side_23 and side_12 != side_13
            or side_13 == side_23 and side_13 != side_12):
+             self.type_of_triangle = "Рівнобедренний"
              return "Рівнобедренний"
 
         elif (side_12 ** 2 + side_13 ** 2 == side_23 ** 2
            or side_12 ** 2 + side_23 ** 2 == side_13 ** 2
            or side_13 ** 2 + side_23 ** 2 == side_12 ** 2):
+            self.type_of_triangle = "Прямокутний"
             return "Прямокутний"
 
         else:
+            self.type_of_triangle = "Довільний"
             return "Довільний"
 
 class Triangles:
@@ -110,25 +114,36 @@ class Triangles:
         return f"{self.triangles}"
 
     def add_triangle(self, triangle:Triangle_):
+        """
+        :param triangle: preferable added triangle
+        :return: updates the list with new triangle
+        """
         if triangle in self.triangles:
             return
 
         self.triangles.append(triangle)
 
     def show_triangle_square_and_type(self, type_of_triangle:str ):
+        """
+        :param type_of_triangle: you search for triangles that are only certain-type:
+        'Рівносторонній', 'Рівнобедренний', 'Прямокутний', 'Довільний'
+        Шукати орієнтуючись на тип ви повинні саме так
+        :return: searched-typed triangles with its name and square
+        """
         triangles_type_list = []
         for triangle in self.triangles:
             if type_of_triangle == triangle.triangle_type():
                 triangles_type_list.append(f"{triangle.name}: {triangle.square_of_triangle()} cm^2, type is {triangle.triangle_type()}")
-
         return triangles_type_list
 
 A = Point(3, 7)
 B = Point(-2, 9)
 C = Point(-4, 22)
 D = Point(-9, -10)
-ABC = Triangle_("ABC", A, B, C, 0)
-XYZ = Triangle_("popa", A, B, D,0)
+ABC = Triangle_("ABC", A, B, C, "")
+XYZ = Triangle_("popa", A, B, D,"")
+XYZ.triangle_type()
+print(XYZ)
 
 new_list = Triangles()
 new_list.add_triangle(ABC)
