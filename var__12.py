@@ -37,20 +37,25 @@ class Leaderboard:
     def __init__(self):
         self.sportsmen = []
 
+    def __str__(self):
+        return f"{self.sportsmen}"
+
     def add_sportsman(self, run:Run):
-        if run.speed_avg() in self.sportsmen:
+        if run in self.sportsmen:
             return
 
-        else:
-            #a_run.runner_surname,#
-            self.sportsmen.append(run.speed_avg())
+        self.sportsmen.append(run.speed_avg())
 
     def best_runner(self):
         for i in range(len(self.sportsmen)):
             for j in range(len(self.sportsmen)):
                 if self.sportsmen[i] > self.sportsmen[j]:
                     self.sportsmen[i], self.sportsmen[j] = self.sportsmen[j], self.sportsmen[i]
-        return self.sportsmen[0]
+
+        #for avg_speed in self.sportsmen:
+        #    return run.runner_surname
+        return self.sportsmen[0], self.sportsmen[1]
+
 
 Nazar_2004 = Run(3, 20, "Prots", 800)
 print(Nazar_2004.speed_avg())
@@ -58,7 +63,11 @@ print(Nazar_2004.speed_avg())
 Ivan_2007 = Run(4, 40, "mykolenko",1000)
 print(Nazar_2004.speed_difference(Ivan_2007))
 
-runner_list = Leaderboard
-runner_list.add_sportsman(Run(4, 4, "jj", 9))
+runner_list = Leaderboard()
 runner_list.add_sportsman(Ivan_2007)
+runner_list.add_sportsman(Nazar_2004)
+print(runner_list.best_runner())
+
+
+
 
