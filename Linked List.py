@@ -71,12 +71,13 @@ class LinkedList:
             return
 
         count = 0
+        # починаємо з 0 бо перший елемент має 0 індекс
         itr = self.head
         while itr:
             if count == index - 1:
                 itr.next = itr.next.next
                 break
-
+            #щоб видалити ноту нам потрібно обірвати шляхи до ноди
             itr = itr.next
             count+=1
 
