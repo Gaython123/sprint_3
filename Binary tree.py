@@ -1,76 +1,57 @@
-#class BinaryTreeNode:
-#    def __init__(self, data):
-#        self.data = data
-#        self.left = None
-#        self.right = None
-#
-#    def
-class BinarySearchTreeNode:
-    def __init__(self, data):
-        self.data = data
-        self.left = None
-        self.right = None
+class Tree:
+    def __init__(self, val=None):
+        # Initialize the Tree node with a value
+        self.value = val
 
-    def add_child(self, data):
-        if data == self.data:
-            return # node already exist
+        # If the node has a value,
+        # create left and right children nodes
 
-        if data < self.data:
-            if self.left:
-                self.left.add_child(data)
-            else:
-                self.left = BinarySearchTreeNode(data)
+        #if self.value - meaning self.value is in Tree (not empty)
+        if self.value:
+            self.left = Tree() #Create empty Nodes for the coming insertion
+            self.right = Tree()
+
         else:
-            if self.right:
-                self.right.add_child(data)
-            else:
-                self.right = BinarySearchTreeNode(data)
+            # If the node has no value,
+            # set left and right children to None
+            self.left = None
+            self.right = None
 
+    # Check if the node is empty (has no value)
+    def is_empty(self):
+        return self.value == None #self.value == None
 
-    def search(self, val):
-        if self.data == val:
-            return True
+    # Insert a new value into the tree
+    def insert(self, data):
 
-        if val < self.data:
-            if self.left:
-                return self.left.search(val)
-            else:
-                return False
+        # If the node is empty, insert the data here
+        if self.is_empty():
+            self.value = data
 
-        if val > self.data:
-            if self.right:
-                return self.right.search(val)
-            else:
-                return False
+            # Create left and right children
+            # for the inserted node
+            self.left = Tree()
+            self.right = Tree()
+            print("{} is inserted successfully".format(self.value))
 
-    def in_order_traversal(self):
-        elements = []
-        if self.left:
-            elements += self.left.in_order_traversal()
+        # If data is less than current node value,
+        # insert into left subtree
+        elif data < self.value:
+            self.left.insert(data)
+            return
 
-        elements.append(self.data)
+        # If data is greater than current node value,
+        # insert into right subtree
+        elif data > self.value:
+            self.right.insert(data)
 
-        if self.right:
-            elements += self.right.in_order_traversal()
+        # If data is equal to current node value, do nothing
+        elif data == self.value:
+            return
 
-        return elements
-
-
-def build_tree(elements):
-    print("Building tree with these elements:",elements)
-    root = BinarySearchTreeNode(elements[0])
-
-    for i in range(1,len(elements)):
-        root.add_child(elements[i])
-
-    return root
-
-if __name__ == '__main__':
-    countries = ["India","Pakistan","Germany", "USA","China","India","UK","USA"]
-    country_tree = build_tree(countries)
-
-    print("UK is in the list? ", country_tree.search("UK"))
-    print("Sweden is in the list? ", country_tree.search("Sweden"))
-
-    numbers_tree = build_tree([17, 4, 1, 20, 9, 23, 18, 34])
-    print("In order traversal gives this sorted list:",numbers_tree.in_order_traversal())
+T = Tree(20)
+T.insert(8)
+T.insert(12)
+T.insert(1)
+T.insert(9)
+T.insert(2)
