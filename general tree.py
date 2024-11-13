@@ -6,6 +6,8 @@ class TreeNode:
 
     def get_level(self):
         level = 0
+        #root is always lelev 0
+        #child for root is level + 1 (1)
         p = self.parent
         while p:
             level += 1
