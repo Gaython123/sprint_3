@@ -40,9 +40,12 @@ class City:
 
         return self.data
 
+
+
 city_one = City('Birmingham', 'BHM')
 print(city_one.get_data('Data.Temperature.Avg Temp', 2016, 1))
 
-
+x_values = [1, 2, 3, 4, 5]
+y_values = city_one.get_data('Data.Temperature.Avg Temp', 2016, 1)
 
 
