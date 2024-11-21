@@ -34,15 +34,14 @@ class City:
             for row in csv_reader:
                 #'Station.City мусимо вказувати як у csv file дослівно'
                 if row['Station.City'] == self.station_city:
-                    row_date = datetime.strptime(row['Date.Full'], '%d %m %Y')
+                    row_date = datetime.strptime(row['Date.Full'], '%Y-%m-%d')
                     if row_date.year == year and row_date.month == month:
                         self.data.append(row[column])
 
         return self.data
 
-
 city_one = City('Birmingham', 'BHM')
-print(city_one.get_data('Data.Temperature.Avg Temp', '2016', '12'))
+print(city_one.get_data('Data.Temperature.Avg Temp', 2016, 1))
 
 
 
