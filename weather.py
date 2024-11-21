@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime
 from matplotlib import pyplot as plt
 
     #for row in csv_file:
@@ -26,21 +27,22 @@ class City:
                 f"Wind direction - {self.wind_dir}; "
                 f"Wind speed - {self.wind_speed}; ")
 
-    def get_data(self, column):
+    def get_data(self, column, year, month):
         self.data = []
         with open('weather.csv', mode ='r') as csv_file:
             csv_reader = csv.DictReader(csv_file)
             for row in csv_reader:
-
                 #'Station.City мусимо вказувати як у csv file дослівно'
                 if row['Station.City'] == self.station_city:
-                    self.data.append(row[column])
+                    row_date = datetime.strptime(row['Date.Full'], '%d %m %Y')
+                    if row_date.year == year and row_date.month == month:
+                        self.data.append(row[column])
 
         return self.data
 
 
 city_one = City('Birmingham', 'BHM')
-print(city_one.get_data('Data.Temperature.Avg Temp'))
+print(city_one.get_data('Data.Temperature.Avg Temp', '2016', '12'))
 
 
 
