@@ -37,6 +37,7 @@ class City:
                     row_date = datetime.strptime(row['Date.Full'], '%Y-%m-%d')
                     if row_date.year == year and row_date.month == month:
                         self.data.append(row[column])
+                        self.data = [*map(int, self.data)]
 
         return self.data
 
@@ -47,8 +48,7 @@ print(city_one.get_data('Data.Temperature.Avg Temp', 2016, 1))
 
 x_values = [1, 2, 3, 4, 5]
 y_values = city_one.get_data('Data.Temperature.Avg Temp', 2016, 1)
-ints = [*map(int, y_values)]
 
-plt.plot(x_values, ints)
+plt.plot(x_values, y_values)
 plt.show()
 
