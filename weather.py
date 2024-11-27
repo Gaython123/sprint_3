@@ -79,11 +79,15 @@ class City:
 
         return self.date
 
-city_one = City('Birmingham', 'BHM')
-y_values = city_one.get_data_from_column('Data.Temperature.Avg Temp', 2016, 1)
-x_values = city_one.get_date(2016, 1)
+    def create_plot(self, column, year, month):
+        date_values_x = self.get_date(year, month)
+        statistics_values_y = self.get_data_from_column(column, year, month)
 
-plt.plot(x_values, y_values)
-#plt.legend()
-plt.show()
+        plt.plot(date_values_x, statistics_values_y)
+        plt.show()
+
+city_one = City('Birmingham', 'BHM')
+
+city_one.create_plot('Data.Temperature.Avg Temp', 2016, 1)
+
 
