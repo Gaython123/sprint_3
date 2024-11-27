@@ -1,5 +1,7 @@
 import csv
 from datetime import datetime
+from types import new_class
+
 from matplotlib import pyplot as plt
 
     #for row in csv_file:
@@ -27,28 +29,61 @@ class City:
                 f"Wind direction - {self.wind_dir}; "
                 f"Wind speed - {self.wind_speed}; ")
 
-    def get_data(self, column, year, month):
+    #def get_data(self, column, year, month):
+    #    self.data = []
+    #    self.date = []
+    #    with open('weather.csv', mode ='r') as csv_file:
+    #        csv_reader = csv.DictReader(csv_file)
+    #        for row in csv_reader:
+    #            #'Station.City мусимо вказувати як у csv file дослівно'
+    #            if row['Station.City'] == self.station_city:
+    #                row_date = datetime.strptime(row['Date.Full'], '%Y-%m-%d')
+    #                if row_date.year == year and row_date.month == month:
+    #                    self.data.append(row[column])
+    #                    self.data = [*map(float, self.data)] #map - це розпакоУка елементів та надання їм типу даних
+    #                    #це тіпа recursion чи шо я єбу
+#
+#
+    #                    new_city = City('Birmingham', 'BMH')
+    #                    self.date.append(new_city.get_data('Date.Full', year, month))
+#
+    #        plt.plot(self.date, self.data)
+    #        plt.show()
+#
+    #    return self.data
+
+    def get_data_from_column(self, column, year, month):
         self.data = []
-        with open('weather.csv', mode ='r') as csv_file:
+        with open('weather.csv', mode='r') as csv_file:
             csv_reader = csv.DictReader(csv_file)
             for row in csv_reader:
-                #'Station.City мусимо вказувати як у csv file дослівно'
+                # 'Station.City мусимо вказувати як у csv file дослівно'
                 if row['Station.City'] == self.station_city:
                     row_date = datetime.strptime(row['Date.Full'], '%Y-%m-%d')
                     if row_date.year == year and row_date.month == month:
                         self.data.append(row[column])
-                        self.data = [*map(int, self.data)]
-
+                        self.data = [*map(float, self.data)]  # map - це розпакоУка елементів та надання їм типу даних
+                        # це тіпа recursion чи шо я єбу
         return self.data
 
+    def get_date(self, year, month):
+        self.date = []
+        with open('weather.csv', mode='r') as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+            for row in csv_reader:
+                # 'Station.City мусимо вказувати як у csv file дослівно'
+                if row['Station.City'] == self.station_city:
+                    row_date = datetime.strptime(row['Date.Full'], '%Y-%m-%d')
+                    if row_date.year == year and row_date.month == month:
+                        self.date.append(row['Date.Full'])
 
+        return self.date
 
 city_one = City('Birmingham', 'BHM')
-print(city_one.get_data('Data.Temperature.Avg Temp', 2016, 1))
-
-x_values = [1, 2, 3, 4, 5]
-y_values = city_one.get_data('Data.Temperature.Avg Temp', 2016, 1)
+y_values = city_one.get_data_from_column('Data.Temperature.Avg Temp', 2016, 1)
+x_values = city_one.get_date(2016, 1)
 
 plt.plot(x_values, y_values)
+#plt.legend()
 plt.show()
 
