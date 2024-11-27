@@ -84,10 +84,17 @@ class City:
         statistics_values_y = self.get_data_from_column(column, year, month)
 
         plt.plot(date_values_x, statistics_values_y)
+        plt.xlabel('Date')
+        plt.ylabel(column)
+        plt.title(f'{column} in {self.station_city}, #{self.station_code} for {year}/{month}')
+
         plt.show()
 
 city_one = City('Birmingham', 'BHM')
 
-city_one.create_plot('Data.Temperature.Avg Temp', 2016, 1)
+#city_one.create_plot('Data.Temperature.Avg Temp', 2016, 1)
+
+city_two = City('Dillon', 'DLN')
+city_two.create_plot('Data.Wind.Speed', 2016, 4)
 
 
