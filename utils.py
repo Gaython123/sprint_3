@@ -49,6 +49,31 @@ class City:
 
         return self.date
 
+    def get_data_whole_period(self, column):
+        self.data = []
+        with open('weather.csv', mode='r') as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+            for row in csv_reader:
+                # 'Station.City мусимо вказувати як у csv file дослівно'
+                if row['Station.City'] == self.station_city:
+                    row_date = datetime.strptime(row['Date.Full'], '%Y-%m-%d')
+                    self.data.append(row[column])
+                    self.data = [*map(float, self.data)]  # map - це розпакоУка елементів та надання їм типу даних
+                    # це тіпа recursion чи шо я єбу
+        return self.data
+
+    def get_all_time_date(self):
+        self.date = []
+        with open('weather.csv', mode='r') as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+            for row in csv_reader:
+                # 'Station.City мусимо вказувати як у csv file дослівно'
+                if row['Station.City'] == self.station_city:
+                    row_date = datetime.strptime(row['Date.Full'], '%Y-%m-%d')
+                    self.date.append(row['Date.Full'])
+
+        return self.date
+
     def create_plot_show(self, column: str, year: int, month: int, color_line_marker: str, linewidth_value: float, label_legend):
         """
         :param column: column to take data from
@@ -186,6 +211,26 @@ class City:
         plt.plot(x_values, y_avg_values, label='AVG Temperatures', color='b', marker = '.', linestyle = ':')
 
         plt.title(f"MAX, MIN and AVG Temperatures for {self.station_city}, {year}/{month}")
+        plt.xlabel('Date')
+        plt.ylabel('Temperature (°F)')
+        plt.legend()
+        plt.grid(True)
+        plt.show()
+
+    def compare_temperatures_all_time(self):
+        """
+        :return: The highest, lowest and average temperatures for the whole time
+        """
+        y_avg_values = self.get_data_whole_period('Data.Temperature.Avg Temp')
+        y_min_values = self.get_data_whole_period('Data.Temperature.Min Temp')
+        y_max_values = self.get_data_whole_period('Data.Temperature.Max Temp')
+        x_values = self.get_all_time_date()
+
+        plt.plot(x_values, y_min_values, label = 'MIN Temperatures', color = 'r', marker = '.', linestyle = '-')
+        plt.plot(x_values, y_max_values, label='MAX Temperatures', color='g', marker = '.', linestyle = '--')
+        plt.plot(x_values, y_avg_values, label='AVG Temperatures', color='b', marker = '.', linestyle = ':')
+
+        plt.title(f"MAX, MIN and AVG Temperatures for {self.station_city}")
         plt.xlabel('Date')
         plt.ylabel('Temperature (°F)')
         plt.legend()
