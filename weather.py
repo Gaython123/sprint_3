@@ -171,14 +171,25 @@ class City:
         plt.show()
 
     def compare_temperatures(self, year: int, month: int):
+        """
+        :param year: year of data needed
+        :param month: month of data needed
+        :return: The highest, lowest and average temperatures during certain period
+        """
         y_avg_values = self.get_data_from_column('Data.Temperature.Avg Temp', year, month)
         y_min_values = self.get_data_from_column('Data.Temperature.Min Temp', year, month)
         y_max_values = self.get_data_from_column('Data.Temperature.Max Temp', year, month)
         x_values = self.get_date(year, month)
 
-        plt.plot(x_values, y_min_values, label = 'MIN Temperatures', color = 'r')
-        plt.plot(x_values, y_max_values, label='MAX Temperatures', color='g')
-        plt.plot(x_values, y_avg_values, label='MIN Temperatures', color='b')
+        plt.plot(x_values, y_min_values, label = 'MIN Temperatures', color = 'r', marker = '.', linestyle = '-')
+        plt.plot(x_values, y_max_values, label='MAX Temperatures', color='g', marker = '.', linestyle = '--')
+        plt.plot(x_values, y_avg_values, label='AVG Temperatures', color='b', marker = '.', linestyle = ':')
+
+        plt.title(f"MAX, MIN and AVG Temperatures for {self.station_city}, {year}/{month}")
+        plt.xlabel('Date')
+        plt.ylabel('Temperature (°F)')
+        plt.legend()
+        plt.grid(True)
         plt.show()
 
 city_one = City('Birmingham', 'BHM')
