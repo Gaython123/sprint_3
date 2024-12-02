@@ -221,18 +221,24 @@ class City:
         """
         :return: The highest, lowest and average temperatures for the whole time
         """
+        plt.style.use('ggplot')
         y_avg_values = self.get_data_whole_period('Data.Temperature.Avg Temp')
         y_min_values = self.get_data_whole_period('Data.Temperature.Min Temp')
         y_max_values = self.get_data_whole_period('Data.Temperature.Max Temp')
         x_values = self.get_all_time_date()
 
-        plt.plot(x_values, y_min_values, label = 'MIN Temperatures', color = 'r', marker = '.', linestyle = '-')
-        plt.plot(x_values, y_max_values, label='MAX Temperatures', color='g', marker = '.', linestyle = '--')
-        plt.plot(x_values, y_avg_values, label='AVG Temperatures', color='b', marker = '.', linestyle = ':')
+        plt.plot(x_values, y_min_values, label = 'MIN Temperatures', color = 'r', marker = '', linestyle = '-', linewidth = 1.5)
+        plt.plot(x_values, y_max_values, label='MAX Temperatures', color='g', marker = '', linestyle = '-', linewidth = 1.5)
+        plt.plot(x_values, y_avg_values, label='AVG Temperatures', color='b', marker = '', linestyle = '-', linewidth = 0.5)
 
-        plt.title(f"MAX, MIN and AVG Temperatures for {self.station_city}")
-        plt.xlabel('Date')
-        plt.ylabel('Temperature (°F)')
+        plt.title(f"MAX, MIN and AVG Temperatures for {self.station_city}", fontsize = 16, color = '#013220')
+        plt.xlabel('Date', color = '#C76E00')
+        plt.ylabel('Temperature (°F)', fontsize = 14, color = '#191970')
+
         plt.legend()
-        plt.grid(True)
+        #plt.grid(True)
+        plt.xticks(fontsize=10, color = '#C76E00')
+        plt.gca().xaxis.set_major_locator(plt.MaxNLocator(5))
+        plt.ylim(min(y_min_values) - 5, max(y_max_values) + 5)
+
         plt.show()
