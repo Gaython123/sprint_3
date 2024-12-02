@@ -1,6 +1,5 @@
 import csv
 from datetime import datetime
-
 from matplotlib import pyplot as plt
 
 class City:
@@ -65,17 +64,123 @@ class City:
 
         plt.plot(date_values_x, statistics_values_y, color_line_marker, linewidth = linewidth_value, label = label_legend)
         plt.grid(True)
-
         plt.xlabel('Date')
         plt.ylabel(column)
         plt.title(f'{column} in {self.station_city}, ({self.station_code}) for {year}/{month}')
-
         plt.legend()
         plt.show()
 
+    def plot_max_temperature(self, year: int, month: int, color_line_marker: str, linewidth_value: float, label_legend):
+        """
+        :param year: range for data
+        :param month: range for data
+        :param color_line_marker: stands for 'color', 'line' and 'marker' styles
+        :param linewidth_value: the width of line
+        :param label_legend: legend
+        :return: creates and returns a graph
+        """
+        date_values_x = self.get_date(year, month)
+        statistics_values_y = self.get_data_from_column('Data.Temperature.Max Temp', year, month)
+
+        plt.plot(date_values_x, statistics_values_y, color_line_marker, linewidth = linewidth_value, label = label_legend)
+        plt.grid(True)
+        plt.xlabel('Date')
+        plt.ylabel('Highest Temperature (°F)')
+        plt.title(f' The highest temperature in {self.station_city}, ({self.station_code}) for {year}/{month}')
+        plt.legend()
+        plt.show()
+
+    def plot_min_temperature(self, year: int, month: int, color_line_marker: str, linewidth_value: float, label_legend):
+        """
+        :param year: range for data
+        :param month: range for data
+        :param color_line_marker: stands for 'color', 'line' and 'marker' styles
+        :param linewidth_value: the width of line
+        :param label_legend: legend
+        :return: creates and returns a graph
+        """
+        date_values_x = self.get_date(year, month)
+        statistics_values_y = self.get_data_from_column('Data.Temperature.Min Temp', year, month)
+
+        plt.plot(date_values_x, statistics_values_y, color_line_marker, linewidth = linewidth_value, label = label_legend)
+        plt.grid(True)
+        plt.xlabel('Date')
+        plt.ylabel('Lowest Temperature (°F)')
+        plt.title(f' The lowest temperature in {self.station_city}, ({self.station_code}) for {year}/{month}')
+        plt.legend()
+        plt.show()
+
+    def plot_avg_temperature(self, year: int, month: int, color_line_marker: str, linewidth_value: float, label_legend):
+        """
+        :param year: range for data
+        :param month: range for data
+        :param color_line_marker: stands for 'color', 'line' and 'marker' styles
+        :param linewidth_value: the width of line
+        :param label_legend: legend
+        :return: creates and returns a graph
+        """
+        date_values_x = self.get_date(year, month)
+        statistics_values_y = self.get_data_from_column('Data.Temperature.Avg Temp', year, month)
+
+        plt.plot(date_values_x, statistics_values_y, color_line_marker, linewidth = linewidth_value, label = label_legend)
+        plt.grid(True)
+        plt.xlabel('Date')
+        plt.ylabel('Average Temperature (°F)')
+        plt.title(f' Average temperature in {self.station_city}, ({self.station_code}) for {year}/{month}')
+        plt.legend()
+        plt.show()
+
+    def plot_wind_direction(self, year: int, month: int, color_line_marker: str, linewidth_value: float, label_legend):
+        """
+        :param year: range for data
+        :param month: range for data
+        :param color_line_marker: stands for 'color', 'line' and 'marker' styles
+        :param linewidth_value: the width of line
+        :param label_legend: legend
+        :return: creates and returns a graph
+        """
+        date_values_x = self.get_date(year, month)
+        statistics_values_y = self.get_data_from_column('Data.Wind.Direction', year, month)
+
+        plt.plot(date_values_x, statistics_values_y, color_line_marker, linewidth = linewidth_value, label = label_legend)
+        plt.grid(True)
+        plt.xlabel('Date')
+        plt.ylabel('Wind Direction')
+        plt.title(f' Wind Direction in {self.station_city}, ({self.station_code}) for {year}/{month}')
+        plt.legend()
+        plt.show()
+
+    def plot_wind_speed(self, year: int, month: int, color_line_marker: str, linewidth_value: float, label_legend):
+        """
+        :param year: range for data
+        :param month: range for data
+        :param color_line_marker: stands for 'color', 'line' and 'marker' styles
+        :param linewidth_value: the width of line
+        :param label_legend: legend
+        :return: creates and returns a graph
+        """
+        date_values_x = self.get_date(year, month)
+        statistics_values_y = self.get_data_from_column('Data.Wind.Speed', year, month)
+
+        plt.plot(date_values_x, statistics_values_y, color_line_marker, linewidth = linewidth_value, label = label_legend)
+        plt.grid(True)
+        plt.xlabel('Date')
+        plt.ylabel('Wind Speed (m/s)')
+        plt.title(f'Wind Speed (m/s) in {self.station_city}, ({self.station_code}) for {year}/{month}')
+        plt.legend()
+        plt.show()
+
+    def compare_temperatures(self, year: int, month: int):
+        y_avg_values = self.get_data_from_column('Data.Temperature.Avg Temp', year, month)
+        y_min_values = self.get_data_from_column('Data.Temperature.Min Temp', year, month)
+        y_max_values = self.get_data_from_column('Data.Temperature.Max Temp', year, month)
+        x_values = self.get_date(year, month)
+
+        plt.plot(x_values, y_min_values, label = 'MIN Temperatures', color = 'r')
+        plt.plot(x_values, y_max_values, label='MAX Temperatures', color='g')
+        plt.plot(x_values, y_avg_values, label='MIN Temperatures', color='b')
+        plt.show()
+
 city_one = City('Birmingham', 'BHM')
-
-city_two = City('Dillon', 'DLN')
-city_two.create_plot_show('Data.Wind.Speed', 2016, 1, 'y-.', 2, 'Dillon wind speed')
-
+city_one.compare_temperatures(2016, 12)
 
