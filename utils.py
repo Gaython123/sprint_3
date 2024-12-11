@@ -1,6 +1,7 @@
 import csv
 from datetime import datetime
 from matplotlib import pyplot as plt
+import numpy as np
 
 class City:
     def __init__(self, station_city: str, station_code: str):
@@ -241,4 +242,21 @@ class City:
         plt.gca().xaxis.set_major_locator(plt.MaxNLocator(5))
         plt.ylim(min(y_min_values) - 5, max(y_max_values) + 5)
 
+        plt.show()
+
+    def bar_avg_temperature(self, year: int, month: int):
+        """
+        :param year: range for data
+        :param month: range for data
+        :return: creates and returns a graph
+        """
+        date_values_x = self.get_date(year, month)
+        statistics_values_y = self.get_data_from_column('Data.Temperature.Avg Temp', year, month)
+
+        plt.bar(date_values_x, statistics_values_y, width = 0.25)
+        plt.grid(False)
+        plt.xlabel('Date')
+        plt.ylabel('Average Temperature (°F)')
+        plt.title(f' Average temperature in {self.station_city}, ({self.station_code}) for {year}/{month}')
+        plt.legend()
         plt.show()
