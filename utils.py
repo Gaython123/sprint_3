@@ -260,3 +260,35 @@ class City:
         plt.title(f' Average temperature in {self.station_city}, ({self.station_code}) for {year}/{month}')
         plt.legend()
         plt.show()
+
+    def bar_compare_temperatures_all_time(self):
+        x_values = self.get_all_time_date()
+        y_avg_values = self.get_data_whole_period('Data.Temperature.Avg Temp')
+        y_min_values = self.get_data_whole_period('Data.Temperature.Min Temp')
+        y_max_values = self.get_data_whole_period('Data.Temperature.Max Temp')
+
+        plt.bar(x_values, y_max_values, color = 'g', width = 0.3, label = 'Max temperature')
+        plt.bar(x_values, y_avg_values, color = 'b', width = 0.4, label = 'Average temperature')
+        plt.bar(x_values, y_min_values, color = 'r', width = 0.5, label =  'Min temperature')
+
+        plt.xlabel('Date', fontsize = 10)
+        plt.ylabel('Temperature in F')
+        plt.title(f'Min, Avg and Max temperature in {self.station_city} (#{self.station_code}) for the whole time')
+        plt.grid(False)
+        plt.legend()
+        plt.gca().xaxis.set_major_locator(plt.MaxNLocator(6))
+
+        plt.show()
+
+    def wind_speed_histogram(self):
+        x_values = self.get_all_time_date()
+        y_values = self.get_data_whole_period('Data.Wind.Speed')
+
+        plt.bar(x_values, y_values, color = 'c')
+        plt.title(f'Histogram for Wind speed, {self.station_city} #{self.station_code}', fontsize = 25)
+        plt.xlabel('Date', fontsize = 20)
+        plt.ylabel('Wind speed', fontsize = 20)
+
+        plt.gca().xaxis.set_major_locator(plt.MaxNLocator(11))
+        plt.xticks(rotation=40)
+        plt.show()
