@@ -1,7 +1,7 @@
 import csv
 from datetime import datetime
 from matplotlib import pyplot as plt
-import numpy as np
+import pandas as pd
 
 class City:
     def __init__(self, station_city: str, station_code: str):
@@ -280,7 +280,7 @@ class City:
 
         plt.show()
 
-    def wind_speed_histogram(self):
+    def wind_speed_bar(self):
         x_values = self.get_all_time_date()
         y_values = self.get_data_whole_period('Data.Wind.Speed')
 
@@ -291,4 +291,25 @@ class City:
 
         plt.gca().xaxis.set_major_locator(plt.MaxNLocator(11))
         plt.xticks(rotation=40)
+        plt.show()
+
+    def histogram_wind_speed(self):
+        y_values = self.get_data_whole_period('Data.Wind.Speed')
+        x_bins = [1,2,3,4,5,6,7,8,9,10,11,12,13,14] #bins - це корзини на які розподіляються вибрані величини для порівняння)
+
+        counts, bins, _ = plt.hist(y_values, bins = x_bins, color = 'cyan',edgecolor = 'grey')
+
+        plt.title(f'Histogram of Wind speed for {self.station_city} #{self.station_code}')
+        plt.xlabel('Wind speed (m/s)')
+        plt.ylabel('Numbers of speed measured')
+
+        max_count = max(counts)
+        # Знаходимо індекси всіх кошиків, які мають найбільше значення
+        max_count_indices = [i for i, count in enumerate(counts) if count == max_count]
+        # Додаємо мітки для кожного з найбільш поширених діапазонів швидкості вітру
+        for i, index in enumerate(max_count_indices):
+            most_common_range = (f'{bins[index]}-{bins[index + 1]}')
+            plt.annotate(f'Most common: {most_common_range} m/s', xy=((bins[index] + bins[index + 1]) / 2, max_count),
+                         xytext=((bins[index] + bins[index + 1]) / 2, max_count + (i + 1) * 0.5),
+                         arrowprops=dict(facecolor='navy', shrink=0.05), ha='center', fontsize=10, color='navy')
         plt.show()
