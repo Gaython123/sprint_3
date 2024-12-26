@@ -313,3 +313,20 @@ class City:
                          xytext=((bins[index] + bins[index + 1]) / 2, max_count + (i + 1) * 0.5),
                          arrowprops=dict(facecolor='navy', shrink=0.05), ha='center', fontsize=10, color='navy')
         plt.show()
+
+    def precipitation_level_bar(self, year, month):
+        y_values = self.get_data_from_column('Data.Precipitation', year, month)
+        x_values = self.get_date(year, month)
+
+        colors =['#1E90FF' if value > 10 else '#1034A6' for value in y_values]
+        plt.bar(x_values, y_values, color = colors)
+        for i in y_values:
+            if i >10:
+                plt.axhline(y=10, color = 'red')
+                plt.legend(['10mm of precipitation',' Precipitation < 10 mm'], loc = 'upper right')
+
+        plt.xlabel('Data')
+        plt.ylabel('Precipitation level')
+        plt.title(f'Precipitation level in {self.station_city}/#{self.station_code} for {month}/{year}')
+        plt.xticks(rotation=45)
+        plt.show()
